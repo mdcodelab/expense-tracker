@@ -1,9 +1,14 @@
+import { currentUser } from "@clerk/nextjs/server";
+import Guest from "@/components/Guest";
 
-
-function HomePage() {
+async function HomePage() {
+  const user = await currentUser();
+  if(!user) {
+    return <Guest></Guest>
+  }
   return (
     <main>
-      <h1>Expense Tracker</h1>
+      <h1>Welcome, {user.firstName} </h1>
     </main>
   )
 }
