@@ -1,6 +1,6 @@
 
 
-function page() {
+function HomePage() {
   return (
     <main>
       <h1>Expense Tracker</h1>
@@ -8,4 +8,4 @@ function page() {
   )
 }
 
-export default page
+export default HomePage;
