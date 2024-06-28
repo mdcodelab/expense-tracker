@@ -1,7 +1,12 @@
 
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
-function Header() {
+import { checkUser } from "@/lib/CheckUser";
+
+async function Header() {
+    const user = await checkUser();
+    console.log(user);
+    
   return (
     <nav className="navbar">
       <div className="navbar-container">
