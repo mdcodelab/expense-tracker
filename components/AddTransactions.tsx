@@ -1,9 +1,17 @@
 "use client";
+import addTransaction from "@/app/actions/addTransaction";
 
 function AddTransactions() {
 
     const clientAction = async (formData) => {
         console.log(formData.get("text"), formData.get("amount"));
+        const {data, error} = await addTransaction(formData);
+
+        if(error) {
+            alert(error)
+        } else {
+            alert("Transaction Added");
+        }
     }
 
 
