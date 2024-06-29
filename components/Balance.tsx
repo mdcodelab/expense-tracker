@@ -1,4 +1,4 @@
-import getUserBalance from "@/app/actions/GetUserBalance";
+import {getUserBalance} from "@/app/actions/GetUserBalance";
 import formatNumberWithCommas from "@/lib/utils";
 
 async function Balance() {
