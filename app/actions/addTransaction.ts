@@ -1,34 +1,53 @@
-"use server";
-//will return a promise with a transaction result;
+'use server';
+import { auth } from '@clerk/nextjs/server';
+import { db } from '@/lib/db';
+import { revalidatePath } from 'next/cache';
 
 interface TransactionData {
-text: string;
-amount: number;
+  text: string;
+  amount: number;
 }
 
 interface TransactionResult {
-    data?: TransactionData;
-    error?: string
+  data?: TransactionData;
+  error?: string;
 }
 
-async function addTransaction (formData:formData):Promise <TransactionResult>{
-const textValue=formData.get("text");
-const amountValue = formData.get("amount");
+async function addTransaction(formData: FormData): Promise<TransactionResult> {
+  const textValue = formData.get('text');
+  const amountValue = formData.get('amount');
 
-if(!textValue || !amountValue ) {
-    return {error: "Text or amount is missing"}
+  // Check for input values
+  if (!textValue || textValue === '' || !amountValue) {
+    return { error: 'Text or amount is missing' };
+  }
+
+  const text: string = textValue.toString(); // Ensure text is a string
+  const amount: number = parseFloat(amountValue.toString()); // Parse amount as number
+
+  // Get logged in user
+  const { userId } = auth();
+
+  // Check for user
+  if (!userId) {
+    return { error: 'User not found' };
+  }
+
+  try {
+    const transactionData: TransactionData = await db.transaction.create({
+      data: {
+        text,
+        amount,
+        userId,
+      },
+    });
+
+    revalidatePath('/');
+
+    return { data: transactionData };
+  } catch (error) {
+    return { error: 'Transaction not added' };
+  }
 }
 
-const text:string=textValue.toString(); //ensure text is string
-const amount = parseFloat(amountValue.toString()); //ensure amount is number
-
-const transactionData:TransactionData = {
-    text,
-    amount
-}
-
-return {data: transactionData}
-
-}
-
-export default addTransaction
+export default addTransaction;
