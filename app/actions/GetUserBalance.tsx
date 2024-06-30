@@ -22,7 +22,7 @@ export async function getUserBalance (): Promise<{balance?: number; error?: stri
 }
 
 
-export async function getIncomeExpense():Promise<{balance?: number, error?:string}>{
+export async function getIncomeExpense():Promise<{income?: number, expense?: number, error?:string}>{
     const{userId}=auth();
     if(!userId) {
         return {error: "User not found."}
