@@ -1,4 +1,4 @@
-function formatNumberWithCommas(number:number) {
+function formatNumberWithCommas(number:number):string {
     // Convert the number to a string
     const numStr = number.toString();
     
