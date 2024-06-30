@@ -3,6 +3,7 @@ import Guest from "@/components/Guest";
 import AddTransactions from "@/components/AddTransactions";
 import Balance from "@/components/Balance";
 import IncomeExpense from "@/components/IncomeExpense";
+import TransactionsList from "@/components/TransactionsList";
 
 async function HomePage() {
   const user = await currentUser();
@@ -15,6 +16,7 @@ async function HomePage() {
       <Balance></Balance>
       <IncomeExpense></IncomeExpense>
       <AddTransactions></AddTransactions>
+      <TransactionsList></TransactionsList>
     </main>
   )
 }
