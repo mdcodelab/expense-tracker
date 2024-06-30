@@ -6,10 +6,12 @@ interface Transactions {
     createdAt: Date;
 }
 import { getUserTransactions } from "@/app/actions/ListTransactions";
+import Transaction from "@/components/Transaction";
 
 
 async function TransactionsList() {
     const {transactions, error} = await getUserTransactions();
+
     if(error) {
         return <p className="error">{error}</p>
     }
@@ -18,7 +20,7 @@ async function TransactionsList() {
     <h3>History</h3>
     <ul className="list">
         {transactions && transactions.map((transaction) => {
-            return <p>{transaction.text}</p>
+            return <Transaction key={transaction.id}  transaction={transaction}></Transaction>
         })}
     </ul>
       
