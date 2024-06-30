@@ -3,9 +3,9 @@ import addTransaction from "@/app/actions/addTransaction";
 import { useRef } from "react";
 
 function AddTransactions() {
-    const formRef=useRef();
+  const formRef = useRef<HTMLFormElement>(null);
 
-    const clientAction = async (formData) => {
+    const clientAction = async (formData: FormData) => {
         //console.log(formData.get("text"), formData.get("amount"));
         const {data, error} = await addTransaction(formData);
 
